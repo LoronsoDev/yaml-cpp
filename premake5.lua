@@ -1,37 +1,43 @@
 project "yaml-cpp"
-    kind "StaticLib"
-    language "C++"
+	kind "StaticLib"
+	language "C++"
 
-    targetdir("bin/" .. outputdir .."/%{prj.name}")
-    objdir("bin-int/" ..outputdir .. "%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    files
+	files
+	{
+		"src/**.h",
+		"src/**.cpp",
+		
+		"include/**.h"
+	}
+
+	includedirs
+	{
+		"include"
+	}
+
+    defines
     {
-        "src/**.h",
-        "src/**.cpp",
-
-        "include/**.h"
+        "YAML_CPP_STATIC_DEFINE"
     }
 
-    includedirs
-    {
-        "include"
-    }
+	filter "system:windows"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "off"
 
-    filter "system:windows"
-        systemversion "latest"
-        cppdialect "C++17"
-        staticruntime "On"
+	filter "system:linux"
+		pic "On"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "off"
 
-    filter "system:linux"
-        systemversion "latest"
-        cppdialect "C++17"
-        staticruntime "On"
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
 
-    filter "configurations:Debug"
-        runtime "Debug"
-        symbols "on"
-
-    filter "configurations:Release"
-        runtime "Release"
-        optimize "on"
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "on"
