@@ -2,7 +2,7 @@ project "yaml-cpp"
     kind "StaticLib"
     language "C++"
 
-    targetdir("bin/" .. ouputdir .."/%{prj.name}")
+    targetdir("bin/" .. outputdir .."/%{prj.name}")
     objdir("bin-int/" ..outputdir .. "%{prj.name}")
 
     files
